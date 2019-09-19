@@ -22,7 +22,7 @@ export class BooksService {
 
   getBooks() {
     firebase.database().ref('/books')
-      .on('value', (data: DataSnapshot) => {
+      .on('value', (data: firebase.database.DataSnapshot) => {
           this.books = data.val() ? data.val() : [];
           this.emitBooks();
         }
@@ -33,7 +33,7 @@ export class BooksService {
     return new Promise(
       (resolve, reject) => {
         firebase.database().ref('/books/' + id).once('value').then(
-          (data: DataSnapshot) => {
+          (data: firebase.database.DataSnapshot) => {
             resolve(data.val());
           }, (error) => {
             reject(error);
